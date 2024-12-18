@@ -19,11 +19,6 @@ class Dealer{
         void flop(Deck deck);
         void turn(Deck deck);
         void river(Deck deck);
-        
-
-        
-
-    
 
 
 };

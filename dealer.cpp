@@ -16,15 +16,20 @@ Dealer::~Dealer(){
 }
 
 
-void Dealer::burn(Deck deck){
-    deck.drawCard(); // burner
+
+void Dealer::burn(Deck deck)
+{
+    std::cout << "Burning top card..." << std::endl;
+    Card* burntCard = deck.drawCard();
+    // The dealer typically discards it, so just delete the card
+    delete burntCard;
 }
 
 
 void Dealer::flop(Deck deck){
-    
-    
-    burn(deck);
+
+    std::cout << "top card burnt*" << std::endl;
+    deck.drawCard(); // burner
 
     std::cout << "da flop*" << std::endl;
 
@@ -46,4 +51,5 @@ void Dealer::flop(Deck deck){
     dealtHead->prev = dealtTail;
     dealtTail->next = dealtHead;
 }
+
 
