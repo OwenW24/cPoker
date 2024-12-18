@@ -19,5 +19,6 @@ class Card{
         std::string getSuit();
 
     friend class Deck;  //this will allow access to Card's private members from the Deck class
+    friend class Dealer;
 };
 # endif

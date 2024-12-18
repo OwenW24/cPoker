@@ -1,5 +1,5 @@
 #include "deck.h"
-#include "card.h"
+// #include "card.h" if problem occurs, uncomment 12/14
 
 #include <iostream>
 #include <random>
@@ -80,13 +80,16 @@ Card* Deck::drawCard(){
 
     Card* currCard = headCard;
 
-    for (int i = 1; i < randomCard; i++){
+    for (int i = 1; i < randomCard; i++){  // double check indexing
         currCard = currCard->next;
     }
 
     currCard->prev->next = currCard->next;
 
     currCard->next->prev = currCard->prev;
+
+    currCard->prev = nullptr;
+    currCard->next = nullptr;  // prevent poining to the deck
 
     std::cout << currCard->getRank() << " of " << currCard->getSuit() << std::endl;
     

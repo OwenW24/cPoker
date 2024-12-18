@@ -19,6 +19,7 @@ class Deck{
         void printDeck();
 
         Card* drawCard();
-        
+    
+    friend class Dealer;
 };
 # endif
