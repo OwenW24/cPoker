@@ -69,6 +69,7 @@ void Deck::printDeck(){
 
 }
 
+// should probably move draw card to the dealer class
 Card* Deck::drawCard(){
 
     std::random_device rd;

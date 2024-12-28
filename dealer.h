@@ -13,7 +13,14 @@ class Dealer{
     public:
         Dealer();
         ~Dealer();
+
+        void burn(Deck deck);
+        void deal(Deck deck);
         void flop(Deck deck);
+        void turn(Deck deck);
+        void river(Deck deck);
+        
+
         
 
     

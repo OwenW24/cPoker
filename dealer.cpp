@@ -16,11 +16,15 @@ Dealer::~Dealer(){
 }
 
 
+void Dealer::burn(Deck deck){
+    deck.drawCard(); // burner
+}
+
 
 void Dealer::flop(Deck deck){
-
-    std::cout << "top card burnt*" << std::endl;
-    deck.drawCard(); // burner
+    
+    
+    burn(deck);
 
     std::cout << "da flop*" << std::endl;
 
