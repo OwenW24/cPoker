@@ -1,1 +1,3 @@
 Practicing memory allocation with a playable poker game & experimenting with c++ gui's
+
+Ensuring that my account is now synced...
