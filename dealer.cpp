@@ -1,55 +1,64 @@
 #include "dealer.h"
 #include <iostream>
 
+Dealer::Dealer() : dealtHead(nullptr), dealtTail(nullptr) {}
 
-Dealer::Dealer(): dealtHead(nullptr), dealtTail(nullptr){};
+Dealer::~Dealer()
+{
+    // If there are no cards dealt, nothing to delete.
+    if (!dealtHead) return;
 
-
-Dealer::~Dealer(){
-
-    while (dealtHead != dealtTail){
-        Card* next = dealtHead->next;
-        delete dealtHead;
-        dealtHead = next;
+    // Since we have a circular list, we continue until we've deleted the tail.
+    Card* current = dealtHead;
+    while (true) {
+        Card* next = current->next;
+        delete current;
+        if (current == dealtTail) {
+            break;
+        }
+        current = next;
     }
-
 }
-
-
 
 void Dealer::burn(Deck deck)
 {
     std::cout << "Burning top card..." << std::endl;
     Card* burntCard = deck.drawCard();
-    // The dealer typically discards it, so just delete the card
+    // The dealer discards it, so just delete the card
     delete burntCard;
 }
 
+void Dealer::flop(Deck deck)
+{
+    // Burn the top card first
+    std::cout << "Top card burnt*" << std::endl;
+    deck.drawCard(); // This is the "burn"
 
-void Dealer::flop(Deck deck){
+    // Draw the flop (3 cards)
+    std::cout << "Dealing the flop*" << std::endl;
 
-    std::cout << "top card burnt*" << std::endl;
-    deck.drawCard(); // burner
+    // Draw the first card of the flop
+    Card* firstFlopCard = deck.drawCard();
+    dealtHead = firstFlopCard;
+    Card* prevCard = firstFlopCard;
 
-    std::cout << "da flop*" << std::endl;
+    std::cout << firstFlopCard->getRank() << " of " << firstFlopCard->getSuit() << std::endl;
 
-    Card* card1 = deck.drawCard();
-    dealtHead = card1;
-    Card* prevCard = card1;
-    
-    std::cout << card1->getRank() << " of " << card1->getSuit() << std::endl;
+    // Draw the remaining two cards of the flop
+    for (int i = 0; i < 2; i++) {
+        Card* nextCard = deck.drawCard();
+        nextCard->prev = prevCard;
+        prevCard->next = nextCard;
 
-    for (int i = 0; i < 2; i++){
-        
-        card1 = deck.drawCard();
-        card1->prev = prevCard;
-        prevCard->next = card1;
-        std::cout << card1->getRank() << " of " << card1->getSuit() << std::endl;
+        std::cout << nextCard->getRank() << " of " << nextCard->getSuit() << std::endl;
+
+        prevCard = nextCard;
     }
 
-    dealtTail = card1;
+    // `prevCard` now points to the last of the three flop cards
+    dealtTail = prevCard;
+
+    // Make it circular
     dealtHead->prev = dealtTail;
     dealtTail->next = dealtHead;
 }
-
-
